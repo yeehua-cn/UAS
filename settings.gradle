@@ -1,4 +1,5 @@
 rootProject.name = 'UAS'
+include 'hazelcast-service'
 include 'platform'
 include 'share'
 include 'uas'

@@ -1,4 +1,4 @@
-rootProject.name = 'uas'
+project.name = 'uas'
 include 'www'
 include 'login'
 include 'im'
