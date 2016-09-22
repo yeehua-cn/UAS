@@ -1,0 +1,4 @@
+rootProject.name = 'UAS'
+include 'platform'
+include 'share'
+include 'uas'

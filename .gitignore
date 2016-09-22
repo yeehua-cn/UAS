@@ -2,8 +2,9 @@
 
 .settings/
 .idea/
-*/build/
-*/output/
-*/out/
+.gradle/
+build/
+output/
+out/
 
 *.iml

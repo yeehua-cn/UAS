@@ -3,5 +3,3 @@ include 'www'
 include 'login'
 include 'im'
 include 'common'
-include 'platform'
-
