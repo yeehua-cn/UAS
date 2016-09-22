@@ -1,1 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+.settings/
+.idea/
+*/build/
+*/output/
+*/out/
+
+*.iml

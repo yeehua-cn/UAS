@@ -1,9 +1,0 @@
-
-
-.settings/
-.idea/
-build/
-output/
-out/
-
-*.iml
