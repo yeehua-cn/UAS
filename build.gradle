@@ -1,42 +1,48 @@
-group 'uas.org'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
 // 全局配置，对所有工程有效
 allprojects {
-    apply plugin: "java"
-    apply plugin: "idea"
-    apply plugin: "eclipse"
-    apply plugin: "maven"
-
-    group = "com.test"
-    version = "1.0"
-
-    // 全局属性设置
-    ext {
-        junitVersion = "4.11"
-        springVersion = "3.0.5.RELEASE"
-        // java文件编码方式设置为utf-8
-        compileJava.options.encoding = 'UTF-8'
-        compileTestJava.options.encoding = 'UTF-8'
-    }
-}
-
-// 所有子工程共有的配置
-subprojects {
     // 配置多个maven源
     repositories {
         mavenLocal()
         mavenCentral()
     }
 
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+    apply plugin: 'checkstyle'
+    apply plugin: 'findbugs'
+    apply plugin: 'jdepend'
+    apply plugin: 'pmd'
+
+    group = "org.uas"
+    version = "1.0"
+
+    // 全局属性设置
+    ext {
+        junitVersion = "4.11"
+        springVersion = "3.0.5.RELEASE"
+    }
+
+    compileJava {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+        // java文件编码方式设置为UTF-8
+        options.encoding = 'UTF-8'
+    }
+
+    compileTestJava {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+        // java文件编码方式设置为UTF-8
+        options.encoding = 'UTF-8'
+        options.compilerArgs += "-parameters"
+    }
+
+
+}
+
+// 所有子工程共有的配置
+subprojects {
     // 默认情况下gradle会选用版本最高的那个依赖，有时候会带来问题
     configurations.all {
         // 有版本冲突的时候强制使用指定的版本，对于相关依赖也同样有效
@@ -55,3 +61,13 @@ subprojects {
     }
 }
 
+checkstyle{
+    configFile = file('qa/checkstyle/google_checks.xml')
+}
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
+}
