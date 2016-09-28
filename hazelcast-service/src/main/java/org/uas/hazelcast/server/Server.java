@@ -21,7 +21,7 @@ public class Server {
 
   private static final String INSTANCE_NAME = "singleton";
 
-  private static final String CONFIG_NAME = "hazelcast.xml";
+  private static final String CONFIG_NAME = "config/hazelcast.xml";
 
   private static Config config;
 
