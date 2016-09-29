@@ -9,13 +9,13 @@ allprojects {
     apply plugin: "java"
     apply plugin: "idea"
     apply plugin: "maven"
-    apply plugin: 'checkstyle'
+//    apply plugin: 'checkstyle'
     apply plugin: 'findbugs'
     apply plugin: 'jdepend'
     apply plugin: 'pmd'
 
     group = "org.uas"
-    version = "1.0"
+    version = "1.0-SNAPSHOT"
 
     // 全局属性设置
     ext {
@@ -38,36 +38,20 @@ allprojects {
         options.compilerArgs += "-parameters"
     }
 
-
+//    checkstyle {
+//        configFile = file(rootProject.rootDir.getPath() + '/config/checkstyle/google_checks.xml')
+//    }
 }
 
 // 所有子工程共有的配置
 subprojects {
-    // 默认情况下gradle会选用版本最高的那个依赖，有时候会带来问题
-    configurations.all {
-        // 有版本冲突的时候强制使用指定的版本，对于相关依赖也同样有效
-        resolutionStrategy.force(
-                "org.springframework:spring-core:${springVersion}",
-        )
-    }
+
     // 公共依赖配置
     dependencies {
         compile(
-                "org.springframework:spring-core:${springVersion}",
         )
         testCompile(
                 "junit:junit:${junitVersion}",
         )
-    }
-}
-
-checkstyle{
-    configFile = file('qa/checkstyle/google_checks.xml')
-}
-tasks.withType(Checkstyle) {
-    reports {
-        xml.enabled false
-        html.enabled true
-        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
     }
 }
