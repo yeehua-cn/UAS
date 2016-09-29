@@ -14,15 +14,14 @@
 ~ See the License for the specific language governing permissions and
 ~ limitations under the License.
 -->
-
-<hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.0.xsd"
-           xmlns="http://www.hazelcast.com/schema/config"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<hazelcast xmlns="http://www.hazelcast.com/schema/config">
     <group>
-        <name>uas.org</name>
-        <password>uas_123456</password>
+        <name>@name@</name>
+        <password>@password@</password>
     </group>
+
     <management-center enabled="false">http://localhost:8080/mancenter</management-center>
+
     <network>
         <port auto-increment="true">5701</port>
         <outbound-ports>
@@ -49,14 +48,14 @@
                 <tag-value>hz-nodes</tag-value>
             </aws>
         </join>
-        <!--        <interfaces enabled="false">
+        <!-- <interfaces enabled="false">
             <interface>10.10.1.*</interface>
         </interfaces>-->
         <interfaces enabled="true">
             <interface>@configInterface@</interface>
         </interfaces>
-        <ssl enabled="false" />
-        <socket-interceptor enabled="false" />
+        <ssl enabled="false"/>
+        <socket-interceptor enabled="false"/>
         <symmetric-encryption enabled="false">
             <!--
                encryption algorithm such as
@@ -75,16 +74,20 @@
             <iteration-count>19</iteration-count>
         </symmetric-encryption>
     </network>
+
     <partition-group enabled="false"/>
+
     <executor-service name="default">
         <pool-size>16</pool-size>
         <queue-capacity>100</queue-capacity>
     </executor-service>
+
     <queue name="default">
         <max-size>0</max-size>
         <backup-count>1</backup-count>
         <async-backup-count>0</async-backup-count>
     </queue>
+
     <map name="default">
         <in-memory-format>BINARY</in-memory-format>
         <backup-count>1</backup-count>
@@ -96,11 +99,22 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
+
     <map name="cache">
         <backup-count>1</backup-count>
         <time-to-live-seconds>0</time-to-live-seconds>
         <max-idle-seconds>0</max-idle-seconds>
         <eviction-policy>LRU</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
+
+    <map name="idle5Minutes">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>0</time-to-live-seconds>
+        <max-idle-seconds>300</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
         <max-size policy="PER_NODE">0</max-size>
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
@@ -114,7 +128,6 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
-
     <map name="idle30Minutes">
         <backup-count>1</backup-count>
         <time-to-live-seconds>0</time-to-live-seconds>
@@ -133,6 +146,15 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
+    <map name="idle2Hour">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>0</time-to-live-seconds>
+        <max-idle-seconds>7200</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
     <map name="idle6Hours">
         <backup-count>1</backup-count>
         <time-to-live-seconds>0</time-to-live-seconds>
@@ -146,6 +168,25 @@
         <backup-count>1</backup-count>
         <time-to-live-seconds>0</time-to-live-seconds>
         <max-idle-seconds>864000</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
+    <map name="idle2Days">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>0</time-to-live-seconds>
+        <max-idle-seconds>1728000</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
+
+    <map name="live5Minutes">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>300</time-to-live-seconds>
+        <max-idle-seconds>0</max-idle-seconds>
         <eviction-policy>NONE</eviction-policy>
         <max-size policy="PER_NODE">0</max-size>
         <eviction-percentage>25</eviction-percentage>
@@ -178,6 +219,15 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
+    <map name="live1Hour">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>7200</time-to-live-seconds>
+        <max-idle-seconds>0</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
     <map name="live6Hours">
         <backup-count>1</backup-count>
         <time-to-live-seconds>21600</time-to-live-seconds>
@@ -196,6 +246,16 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
+    <map name="live2Days">
+        <backup-count>1</backup-count>
+        <time-to-live-seconds>1728000</time-to-live-seconds>
+        <max-idle-seconds>0</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+    </map>
+
     <map name="users">
         <backup-count>1</backup-count>
         <time-to-live-seconds>0</time-to-live-seconds>
@@ -205,6 +265,7 @@
         <eviction-percentage>25</eviction-percentage>
         <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
     </map>
+
     <semaphore name="def">
         <initial-permits>100</initial-permits>
         <backup-count>1</backup-count>
@@ -221,6 +282,6 @@
         <portable-version>0</portable-version>
     </serialization>-->
 
-    <services enable-defaults="true" />
-    <!-- -->
+    <services enable-defaults="true"/>
+
 </hazelcast>

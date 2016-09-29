@@ -10,10 +10,10 @@ import com.hazelcast.logging.Logger;
 import java.util.logging.Level;
 
 /**
- * Hazelcast instance.
+ * Hazelcast server instance.
  * 服务端启动类
  *
- * @author ylh&lt;yeehua@live.cn>
+ * @author ylh&lt;yeehua@live.cn&gt;
  * @since 1.0
  */
 public class Server {
