@@ -1,11 +1,12 @@
 package org.uas.hazelcast.client;
 
-import com.hazelcast.config.EvictionPolicy;
-import com.hazelcast.config.MapConfig;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Set;
+import org.uas.hazelcast.server.Server;
 
 /**
  * ClientTest.class.
@@ -18,28 +19,42 @@ import java.util.Set;
  */
 public class ClientTest {
 
-  private String name = "uas.org";
-  private String password = "uas_123456";
+  private static final String NAME = "uas.org";
+  private static final String PASSWORD = "uas_123456";
 
-  private String[] ipArray = {"192.168.26.57:5701"};
+  private String[] ipArray = {"127.0.0.1:5701"};
+
+  @Before
+  public void setUp() {
+    String[] args = {"arg"};
+    Server.main(args);
+  }
+
+  @After
+  public void after() {
+    Server.getInstance().shutdown();
+  }
 
 
   @Test
-  public void getClient() throws Exception {
-    HazelcastInstance client = Client.getClient(name, password, ipArray);
+  public void testGetClient() throws Exception {
+    HazelcastInstance client = Client.getClient(NAME, PASSWORD, ipArray);
 
-    Set set = client.getMap("live30Minutes").keySet();
-    System.out.println("set");
-    System.out.println(set);
+    IMap<String, String> live5Minutes = client.getMap("live5Minutes");
 
+    String key = "test";
 
-    MapConfig mc = new MapConfig();
-    mc.setBackupCount(1)
-        .setAsyncBackupCount(0)
-        .setTimeToLiveSeconds(60)
-        .setEvictionPolicy(EvictionPolicy.NONE);
+    live5Minutes.set(key, key);
 
-//    client.getConfig().addMapConfig(mc);
+    System.out.println("key set = " + live5Minutes.keySet());
+    System.out.println("values = " + live5Minutes.values());
+
+    Assert.assertEquals(key, live5Minutes.get(key));
+
+    Thread.sleep(5 * 60 * 1000);
+
+    Assert.assertNull(live5Minutes.get(key));
+
   }
 
 }

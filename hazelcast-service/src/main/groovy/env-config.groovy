@@ -3,7 +3,7 @@ environments {
     development {
         versionSuffix = "-development"
 
-        configInterface = '192.168.26.*'
+        configInterface = '127.0.0.1'
         name = 'uas.org'
         password = 'uas_123456'
     }
