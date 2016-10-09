@@ -14,7 +14,7 @@ import org.uas.hazelcast.server.Server;
  * Description:
  * Created in 2016-9-29 下午2:41
  *
- * @author ylh &gt;yeehua@live.cn>
+ * @author ylh&gt;yeehua@live.cn&lt;
  * @version 1.0
  */
 public class ClientTest {
