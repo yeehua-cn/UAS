@@ -51,6 +51,19 @@ public class ClientTest {
 
     Assert.assertEquals(key, live5Minutes.get(key));
 
+    System.out.println("********************************************");
+
+    IMap<Integer, Integer> live5Min = client.getMap("live5Minutes");
+
+    Integer integerValue = 128;
+
+    live5Min.set(integerValue, integerValue);
+    System.out.println("key set = " + live5Min.keySet());
+    System.out.println("values = " + live5Min.values());
+
+    Assert.assertEquals(integerValue, live5Min.get(integerValue));
+
+
     Thread.sleep(5 * 60 * 1000);
 
     Assert.assertNull(live5Minutes.get(key));
